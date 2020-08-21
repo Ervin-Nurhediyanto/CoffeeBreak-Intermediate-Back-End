@@ -1,6 +1,7 @@
 const redis = require('redis')
 const client = redis.createClient(6379)
 const helper = require('../helpers/helpers')
+
 module.exports = {
   cacheGetAllProduct: (req, res, next) => {
     client.get('getallproduct', (err, data) => {

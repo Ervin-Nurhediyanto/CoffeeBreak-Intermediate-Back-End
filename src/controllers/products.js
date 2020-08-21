@@ -67,17 +67,18 @@ const products = {
       })
   },
   insertProduct: (req, res) => {
-    const { name, image, price, idCategory } = req.body
+    // console.log(req.file)
+    const { name, price, idCategory } = req.body
     const data = {
       name,
-      image,
+      image: process.env.BASE_URL + 'uploads/' + req.file.filename,
       price,
       idCategory
     }
     productModels.insertProduct(data)
       .then((result) => {
         const resultProducts = result
-        console.log(result)
+        // console.log(result)
         helpers.response(res, null, resultProducts, 200, null)
       })
       .catch((err) => {

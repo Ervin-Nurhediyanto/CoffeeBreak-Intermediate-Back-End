@@ -13,4 +13,6 @@ app.use(cors())
 app.use('/api/v1/', routes)
 
 const PORT = process.env.PORT
-app.listen(PORT, () => { console.log(`server is running ${PORT}`) })
+
+app.use('/uploads', express.static('./uploads'))
+app.listen(PORT, () => { console.log(`Server started on port ${PORT}`) })
