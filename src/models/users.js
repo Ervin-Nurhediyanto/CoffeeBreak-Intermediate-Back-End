@@ -12,6 +12,7 @@ module.exports = {
       })
     })
   },
+
   login: (email) => {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM user WHERE email = ?', email, (err, result) => {
@@ -23,4 +24,22 @@ module.exports = {
       })
     })
   }
+
+  // register: (data) => {
+  //   return new Promise((resolve, reject) => {
+  //     connection.query('SELECT * FROM user WHERE email = ?', data.email, (err, result) => {
+  //       if (!err) {
+  //         resolve('Email sudah terdaftar')
+  //       } else {
+  //         connection.query('INSERT INTO user SET ?', data, (err, result) => {
+  //           if (!err) {
+  //             resolve(result)
+  //           } else {
+  //             reject(new Error(err))
+  //           }
+  //         })
+  //       }
+  //   })
+  // },
+
 }

@@ -16,8 +16,8 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     }
-    bcrypt.genSalt(10, function (err, salt) {
-      bcrypt.hash(data.password, salt, function (err, hash) {
+    bcrypt.genSalt(10, function (_err, salt) {
+      bcrypt.hash(data.password, salt, function (_err, hash) {
         data.password = hash
         modelUser.register(data)
           .then((result) => {
@@ -29,6 +29,33 @@ module.exports = {
       })
     })
   },
+
+  registerAdmin: (req, res) => {
+    const { email, password, firstName, lastName } = req.body
+
+    const data = {
+      email,
+      password,
+      firstName,
+      lastName,
+      roleId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+    bcrypt.genSalt(10, function (_err, salt) {
+      bcrypt.hash(data.password, salt, function (_err, hash) {
+        data.password = hash
+        modelUser.register(data)
+          .then((result) => {
+            helpers.response(res, null, result, 201, null)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      })
+    })
+  },
+
   login: (req, res) => {
     const { email, password } = req.body
     modelUser.login(email)
@@ -44,11 +71,20 @@ module.exports = {
             email: user.email,
             roleId: user.roleId
           }
-          jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, (err, token) => {
-            user.token = token
+
+          jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, (_err, token) => {
+            user.token = token + ' ' + user.roleId
+
             delete user.password
             delete user.createdAt
             delete user.updatedAt
+
+            if (user.roleId !== 1) {
+              user.roleId = 'Guest User'
+            } else {
+              user.roleId = 'Admin'
+            }
+
             helpers.response(res, null, user, 200)
           })
         })
