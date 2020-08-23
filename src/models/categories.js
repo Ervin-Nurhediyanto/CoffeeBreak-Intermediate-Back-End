@@ -1,5 +1,4 @@
 const connection = require('../configs/db')
-// const { promise } = require('../configs/db')
 
 const categories = {
   getCategoryById: (id) => {
@@ -32,7 +31,7 @@ const categories = {
       if (limit != null) {
         pageCategory = `LIMIT ${limit} OFFSET ${(page - 1) * limit}`
       } else {
-        pageCategory = `LIMIT 3 OFFSET ${(page - 1) * 3}`
+        pageCategory = `LIMIT 6 OFFSET ${(page - 1) * 6}`
       }
     }
     return new Promise((resolve, reject) => {
@@ -66,17 +65,33 @@ const categories = {
       })
     })
   },
+
   deleteCategory: (id) => {
     return new Promise((resolve, reject) => {
-      connection.query('DELETE FROM category WHERE id = ?', id, (err, result) => {
+      connection.query('SELECT * FROM product INNER JOIN category ON product.idCategory = category.id WHERE category.id = ?', id, (err, result) => {
         if (!err) {
-          resolve(result)
+          if (result != '') {
+            resolve('ID Category Sudah Digunakan')
+          } else {
+            connection.query('DELETE FROM category WHERE id = ?', id, (err, result) => {
+              if (!err) {
+                if (result.affectedRows != 0) {
+                  resolve(result)
+                } else {
+                  resolve('ID Category tidak ditemukan')
+                }
+              } else {
+                reject(new Error(err))
+              }
+            })
+          }
         } else {
           reject(new Error(err))
         }
       })
     })
   },
+
   insertCategory: (data) => {
     console.log(data)
     return new Promise((resolve, reject) => {

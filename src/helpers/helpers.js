@@ -14,10 +14,14 @@ const helpers = {
       resultPrint.page = page
     }
 
-    if (status === 404) {
-      resultPrint.totalItem = 0
-    } else {
-      resultPrint.totalItem = result.length
+    if (result != 'email sudah terdaftar') {
+      if (result != 'ID Category Sudah Digunakan') {
+        if (status === 404) {
+          resultPrint.totalItem = 0
+        } else {
+          resultPrint.totalItem = result.length
+        }
+      }
     }
 
     resultPrint.status_code = status

@@ -56,7 +56,13 @@ const categories = {
     const id = req.params.id
     categoryModels.deleteCategory(id)
       .then((result) => {
-        helpers.response(res, null, result, 200, null)
+        if (result == 'ID Category Sudah Digunakan') {
+          helpers.response(res, null, result, 403, 'Forbidden')
+        } else if (result == 'ID Category tidak ditemukan') {
+          helpers.response(res, null, result, 404, 'Not Found')
+        } else {
+          helpers.response(res, null, result, 200, null)
+        }
       })
       .catch((err) => {
         console.log(err)

@@ -1,5 +1,4 @@
 const connection = require('../configs/db')
-// const { promise } = require('../configs/db')
 
 const products = {
   getProductById: (id) => {

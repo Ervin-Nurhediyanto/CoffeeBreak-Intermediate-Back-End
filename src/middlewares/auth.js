@@ -20,11 +20,10 @@ module.exports = {
     if (roleId == 1) {
       jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
         if (err) return helpers.response(res, null, { message: 'token invalid' }, 403)
-
         next()
       })
     } else {
-      return helpers.response(res, null, { message: 'u are not admin' }, 403)
+      return helpers.response(res, null, { message: 'anda bukan admin' }, 403, 'Forbidden')
     }
   }
 }

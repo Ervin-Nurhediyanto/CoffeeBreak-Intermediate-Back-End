@@ -21,7 +21,11 @@ module.exports = {
         data.password = hash
         modelUser.register(data)
           .then((result) => {
-            helpers.response(res, null, result, 201, null)
+            if (result == 'email sudah terdaftar') {
+              helpers.response(res, null, result, 403, 'Forbidden')
+            } else {
+              helpers.response(res, null, result, 201, null)
+            }
           })
           .catch((err) => {
             console.log(err)
@@ -47,7 +51,11 @@ module.exports = {
         data.password = hash
         modelUser.register(data)
           .then((result) => {
-            helpers.response(res, null, result, 201, null)
+            if (result == 'email sudah terdaftar') {
+              helpers.response(res, null, result, 403, 'Forbidden')
+            } else {
+              helpers.response(res, null, result, 201, null)
+            }
           })
           .catch((err) => {
             console.log(err)

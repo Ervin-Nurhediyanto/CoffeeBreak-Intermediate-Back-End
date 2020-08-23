@@ -39,10 +39,10 @@ const products = {
 
   updateProduct: (req, res) => {
     const id = req.params.id
-    const { name, image, price, idCategory } = req.body
+    const { name, price, idCategory } = req.body
     const data = {
       name,
-      image,
+      image: process.env.BASE_URL + 'uploads/' + req.file.filename,
       price,
       idCategory
     }
@@ -67,7 +67,6 @@ const products = {
       })
   },
   insertProduct: (req, res) => {
-    // console.log(req.file)
     const { name, price, idCategory } = req.body
     const data = {
       name,
@@ -78,7 +77,6 @@ const products = {
     productModels.insertProduct(data)
       .then((result) => {
         const resultProducts = result
-        // console.log(result)
         helpers.response(res, null, resultProducts, 200, null)
       })
       .catch((err) => {

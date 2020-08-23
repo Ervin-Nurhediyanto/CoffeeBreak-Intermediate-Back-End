@@ -9,7 +9,7 @@ router
   .get('/:id', verifyAccess, productController.getProductById)
   .get('/', verifyAccess, redis.cacheGetAllProduct, productController.getAllproduct)
   .post('/', verifyAccessAdmin, redis.clearGetAllProduct, upload, productController.insertProduct)
-  .patch('/:id', verifyAccessAdmin, productController.updateProduct)
+  .patch('/:id', verifyAccessAdmin, upload, productController.updateProduct)
   .delete('/:id', verifyAccessAdmin, productController.deleteProduct)
 
 module.exports = router
