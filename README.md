@@ -1,6 +1,7 @@
 # CoffeeBreak-Back-End
 
 Simple application to CRUD database with node js, Express, and MySQL.
+This application use JWT to authentication and authorization.
 
 ## Table of Contents
 
