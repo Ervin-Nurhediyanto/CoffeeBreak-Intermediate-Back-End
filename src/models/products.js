@@ -60,7 +60,7 @@ const products = {
     return new Promise((resolve, reject) => {
       connection.query('UPDATE product SET ? WHERE id = ?', [data, id], (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve('Update Product Success')
         } else {
           reject(new Error(err))
         }
@@ -69,9 +69,19 @@ const products = {
   },
   deleteProduct: (id) => {
     return new Promise((resolve, reject) => {
-      connection.query('DELETE FROM product WHERE id = ?', id, (err, result) => {
+      connection.query('SELECT * FROM product WHERE id = ?', id, (err, result) => {
         if (!err) {
-          resolve(result)
+          if (result != '') {
+            connection.query('DELETE FROM product WHERE id = ?', id, (err, result) => {
+              if (!err) {
+                resolve('Delete Product Success')
+              } else {
+                reject(new Error(err))
+              }
+            })
+          } else {
+            resolve('Data Tidak Ditemukan')
+          }
         } else {
           reject(new Error(err))
         }
@@ -83,7 +93,7 @@ const products = {
     return new Promise((resolve, reject) => {
       connection.query('INSERT INTO product SET ?', data, (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve('Add Product Success')
         } else {
           reject(new Error(err))
         }

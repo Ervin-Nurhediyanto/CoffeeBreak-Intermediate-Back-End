@@ -58,7 +58,7 @@ const categories = {
     return new Promise((resolve, reject) => {
       connection.query('UPDATE category SET ? WHERE id = ?', [data, id], (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve('Update Category Success')
         } else {
           reject(new Error(err))
         }
@@ -76,7 +76,7 @@ const categories = {
             connection.query('DELETE FROM category WHERE id = ?', id, (err, result) => {
               if (!err) {
                 if (result.affectedRows != 0) {
-                  resolve(result)
+                  resolve('Delete Category Success')
                 } else {
                   resolve('ID Category tidak ditemukan')
                 }
@@ -97,7 +97,7 @@ const categories = {
     return new Promise((resolve, reject) => {
       connection.query('INSERT INTO category SET ?', data, (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve('Add Category Success')
         } else {
           reject(new Error(err))
         }

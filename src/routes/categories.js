@@ -7,8 +7,8 @@ const redis = require('../middlewares/redis')
 
 router
   .get('/:id', verifyAccess, categoryController.getCategoryById)
-  .get('/', verifyAccess, redis.cacheGetAllProduct, categoryController.getAllcategory)
-  .post('/', verifyAccessAdmin, redis.clearGetAllProduct, upload, categoryController.insertCategory)
+  .get('/', verifyAccess, redis.cacheGetAllCategory, categoryController.getAllcategory)
+  .post('/', verifyAccessAdmin, redis.clearGetAllCategory, upload, categoryController.insertCategory)
   .patch('/:id', verifyAccessAdmin, upload, categoryController.updateCategory)
   .delete('/:id', verifyAccessAdmin, categoryController.deleteCategory)
 

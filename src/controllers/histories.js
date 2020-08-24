@@ -1,5 +1,7 @@
 const historyModels = require('../models/histories')
 const helpers = require('../helpers/helpers')
+const redis = require('redis')
+const client = redis.createClient(6379)
 
 const histories = {
   getHistoryById: (req, res) => {
@@ -27,6 +29,7 @@ const histories = {
     historyModels.getAllhistory(search, sort, order, page, limit)
       .then((result) => {
         if (result != '') {
+          client.setex('getallhistory', 60 * 60 * 12, JSON.stringify(result))
           helpers.response(res, page, result, 200, null)
         } else {
           helpers.response(res, null, 'Pencarian tidak ditemukan', 404, 'Error')

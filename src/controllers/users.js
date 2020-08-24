@@ -24,7 +24,7 @@ module.exports = {
             if (result == 'email sudah terdaftar') {
               helpers.response(res, null, result, 403, 'Forbidden')
             } else {
-              helpers.response(res, null, result, 201, null)
+              helpers.response(res, null, 'Register User Success', 201, null)
             }
           })
           .catch((err) => {
@@ -54,7 +54,7 @@ module.exports = {
             if (result == 'email sudah terdaftar') {
               helpers.response(res, null, result, 403, 'Forbidden')
             } else {
-              helpers.response(res, null, result, 201, null)
+              helpers.response(res, null, 'Register Admin Success', 201, null)
             }
           })
           .catch((err) => {
@@ -81,7 +81,7 @@ module.exports = {
           }
 
           jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, (_err, token) => {
-            user.token = token + ' ' + user.roleId
+            user.token = token
 
             delete user.password
             delete user.createdAt

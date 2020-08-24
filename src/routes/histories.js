@@ -7,8 +7,8 @@ const redis = require('../middlewares/redis')
 
 router
   .get('/:id', verifyAccess, historyController.getHistoryById)
-  .get('/', verifyAccess, redis.cacheGetAllProduct, historyController.getAllhistory)
-  .post('/', verifyAccessAdmin, redis.clearGetAllProduct, upload, historyController.insertHistory)
+  .get('/', verifyAccess, redis.cacheGetAllHistory, historyController.getAllhistory)
+  .post('/', verifyAccessAdmin, redis.clearGetAllHistory, upload, historyController.insertHistory)
   .patch('/:id', verifyAccessAdmin, upload, historyController.updateHistory)
   .delete('/:id', verifyAccessAdmin, historyController.deleteHistory)
 

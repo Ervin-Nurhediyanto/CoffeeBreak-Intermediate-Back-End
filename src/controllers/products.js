@@ -60,7 +60,11 @@ const products = {
     const id = req.params.id
     productModels.deleteProduct(id)
       .then((result) => {
-        helpers.response(res, null, result, 200, null)
+        if (result != 'Data Tidak Ditemukan') {
+          helpers.response(res, null, result, 200, null)
+        } else {
+          helpers.response(res, null, result, 404, 'Not Found')
+        }
       })
       .catch((err) => {
         console.log(err)
@@ -76,8 +80,7 @@ const products = {
     }
     productModels.insertProduct(data)
       .then((result) => {
-        const resultProducts = result
-        helpers.response(res, null, resultProducts, 200, null)
+        helpers.response(res, null, result, 200, null)
       })
       .catch((err) => {
         console.log(err)

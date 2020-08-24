@@ -53,7 +53,7 @@ const histories = {
     return new Promise((resolve, reject) => {
       connection.query('UPDATE history SET ? WHERE id = ?', [data, id], (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve('Update History Success')
         } else {
           reject(new Error(err))
         }
@@ -64,7 +64,7 @@ const histories = {
     return new Promise((resolve, reject) => {
       connection.query('DELETE FROM history WHERE id = ?', id, (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve('Delete History Success')
         } else {
           reject(new Error(err))
         }
@@ -76,7 +76,7 @@ const histories = {
     return new Promise((resolve, reject) => {
       connection.query('INSERT INTO history SET ?', data, (err, result) => {
         if (!err) {
-          resolve(result)
+          resolve('Add History Success')
         } else {
           reject(new Error(err))
         }

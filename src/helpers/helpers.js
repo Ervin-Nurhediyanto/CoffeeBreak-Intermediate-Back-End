@@ -14,13 +14,11 @@ const helpers = {
       resultPrint.page = page
     }
 
-    if (result != 'email sudah terdaftar') {
-      if (result != 'ID Category Sudah Digunakan') {
-        if (status === 404) {
-          resultPrint.totalItem = 0
-        } else {
-          resultPrint.totalItem = result.length
-        }
+    if (typeof result !== 'string') {
+      if (status === 404) {
+        resultPrint.totalItem = 0
+      } else {
+        resultPrint.totalItem = result.length
       }
     }
 
