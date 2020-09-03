@@ -80,7 +80,7 @@ module.exports = {
             roleId: user.roleId
           }
 
-          jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '1h' }, (_err, token) => {
+          jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: '3h' }, (_err, token) => {
             user.token = token
 
             delete user.password

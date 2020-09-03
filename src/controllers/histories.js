@@ -25,10 +25,14 @@ const histories = {
     const order = req.query.order
     const page = req.query.page
     const limit = req.query.limit
+    const group = req.query.group
 
-    historyModels.getAllhistory(search, sort, order, page, limit)
+    historyModels.getAllhistory(search, sort, order, page, limit, group)
       .then((result) => {
         if (result != '') {
+          // delete result.createdAt
+          // delete result.updatedAt
+          // delete result.password
           // client.setex('getallhistory', 60 * 60 * 12, JSON.stringify(result))
           helpers.response(res, page, result, 200, null)
         } else {
@@ -42,11 +46,11 @@ const histories = {
 
   updateHistory: (req, res) => {
     const id = req.params.id
-    const { idProduct, countItem, date } = req.body
+    const { idProduct, countItem } = req.body
     const data = {
       idProduct,
-      countItem,
-      date
+      countItem
+      // date: new Date().toISOString().split('T')[0] + ' ' + new Date().toTimeString().split(' ')[0]
     }
     historyModels.updateHistory(id, data)
       .then((result) => {

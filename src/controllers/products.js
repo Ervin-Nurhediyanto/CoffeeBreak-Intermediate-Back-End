@@ -40,12 +40,14 @@ const products = {
   updateProduct: (req, res) => {
     const id = req.params.id
     const { name, price, idCategory } = req.body
+
     const data = {
       name,
       image: process.env.BASE_URL + 'uploads/' + req.file.filename,
       price,
       idCategory
     }
+
     productModels.updateProduct(id, data)
       .then((result) => {
         const resultProducts = result

@@ -13,20 +13,26 @@ const histories = {
     })
   },
 
-  getAllhistory: (search, sort, order, page, limit) => {
+  getAllhistory: (search, sort, order, page, limit, group) => {
     return new Promise((resolve, reject) => {
       let searchHistory = ''
       let sortHistory = ''
       let pageHistory = ''
+      let groupHistory = ''
+      let groupSql = ''
 
       if (search != null) {
         searchHistory = `WHERE product.name LIKE '%${search}%'`
       }
+      if (group != null) {
+        groupSql = ',SUM(product.price*history.countItem) AS "amount"'
+        groupHistory = `GROUP BY history.${group}`
+      }
       if (sort != null) {
         if (order != null) {
-          sortHistory = `ORDER BY ${sort} ${order}`
+          sortHistory = `ORDER BY history.${sort} ${order}`
         } else {
-          sortHistory = `ORDER BY ${sort} ASC`
+          sortHistory = `ORDER BY history.${sort} ASC`
         }
       } else {
         sortHistory = 'ORDER BY history.id ASC'
@@ -39,7 +45,7 @@ const histories = {
         }
       }
 
-      connection.query(`SELECT *, product.price*history.countItem AS 'Total', + history.date + INTERVAL 1 DAY AS 'date' FROM product INNER JOIN category ON product.idCategory = category.id INNER JOIN history ON history.idproduct = product.id ${searchHistory} ${sortHistory} ${pageHistory}`, (err, result) => {
+      connection.query(`SELECT *, product.price*history.countItem AS 'Total', + DATE_FORMAT(history.date, "%d %M %Y") AS 'date', history.id AS 'id'${groupSql} FROM product INNER JOIN category ON product.idCategory = category.id INNER JOIN history ON history.idproduct = product.id INNER JOIN user ON user.id = history.idUser ${searchHistory} ${groupHistory} ${sortHistory} ${pageHistory}`, (err, result) => {
         if (!err) {
           resolve(result)
         } else {

@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 function upload (req, res, next) {
   const uploadFile = multer({
     storage: storage,
-    limits: { fileSize: 100000 },
+    limits: { fileSize: 1000000 },
     fileFilter: function (req, file, cb) {
       const extFile = path.extname(file.originalname)
       if (extFile !== '.jpg') {
@@ -26,9 +26,9 @@ function upload (req, res, next) {
   uploadFile(req, res, function (err) {
     if (err) {
       if (err == 'jpg Only!') {
-        return helpers.response(res, null, { message: 'jpg Only!' }, 403, 'Forbidden')
+        return helpers.response(res, null, 'jpg Only!', 202, 'processing has not been completed')
       } else {
-        return helpers.response(res, null, { message: 'File too large' }, 403, 'Forbidden')
+        return helpers.response(res, null, 'File too large', 202, 'processing has not been completed')
       }
     } else {
       next()
