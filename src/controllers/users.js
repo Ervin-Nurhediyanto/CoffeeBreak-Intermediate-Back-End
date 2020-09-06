@@ -68,12 +68,12 @@ module.exports = {
     const { email, password } = req.body
     modelUser.login(email)
       .then((result) => {
-        if (result.length < 1) return helpers.response(res, null, { message: 'email not found!!' }, 201, null)
+        if (result.length < 1) return helpers.response(res, null, 'email not found!!', 404, null)
 
         const user = result[0]
         const hash = user.password
         bcrypt.compare(password, hash).then((resCompare) => {
-          if (!resCompare) return helpers.response(res, null, { message: 'password wrong !!' }, 201, null)
+          if (!resCompare) return helpers.response(res, null, 'password wrong !!', 404, null)
           const payload = {
             id: user.id,
             email: user.email,
