@@ -62,6 +62,8 @@ $ npm start
 
 ## REST API
 
-You can view my Postman collection [here](#https://web.postman.co/collections/11550213-19bd0b36-6926-437b-81b6-008cac8f431d?version=latest&workspace=cc285d8c-f27d-4761-8b8b-c86eda82d08f)
+You can view my Postman collection [here](https://web.postman.co/collections/11550213-19bd0b36-6926-437b-81b6-008cac8f431d?version=latest&workspace=cc285d8c-f27d-4761-8b8b-c86eda82d08f)
+
 or </br>
+
 [![run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/65e37e55e8c3d1a69d55)
