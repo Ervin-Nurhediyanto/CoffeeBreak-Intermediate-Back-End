@@ -52,9 +52,9 @@ module.exports = {
         modelUser.register(data)
           .then((result) => {
             if (result == 'email sudah terdaftar') {
-              helpers.response(res, null, result, 403, 'Forbidden')
+              helpers.response(res, null, 'email sudah terdaftar', 204, 'Forbidden')
             } else {
-              helpers.response(res, null, 'Register Admin Success', 201, null)
+              helpers.response(res, null, 'Register Admin Success', 201, 'Created')
             }
           })
           .catch((err) => {
@@ -68,12 +68,12 @@ module.exports = {
     const { email, password } = req.body
     modelUser.login(email)
       .then((result) => {
-        if (result.length < 1) return helpers.response(res, null, 'email not found!!', 404, null)
+        if (result.length < 1) return helpers.response(res, null, 'email not found!!', 401, null)
 
         const user = result[0]
         const hash = user.password
         bcrypt.compare(password, hash).then((resCompare) => {
-          if (!resCompare) return helpers.response(res, null, 'password wrong !!', 404, null)
+          if (!resCompare) return helpers.response(res, null, 'password wrong !!', 401, null)
           const payload = {
             id: user.id,
             email: user.email,
