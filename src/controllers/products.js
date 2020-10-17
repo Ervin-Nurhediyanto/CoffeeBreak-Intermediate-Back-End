@@ -29,7 +29,7 @@ const products = {
         if (result != '') {
           helpers.response(res, page, result, 200, null)
         } else {
-          helpers.response(res, page, 'Produk yang anda cari tidak ada', 404, 'error')
+          helpers.response(res, page, 'Produk yang anda cari tidak ada', 200, 'error')
         }
       })
       .catch((err) => {
